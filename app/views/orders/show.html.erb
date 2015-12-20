@@ -35,20 +35,35 @@
         </p>
         </div>
 
-<!--             <div class="list-group-item">
+            <div class="list-group-item">
 
         <p>
           <strong>Total pieces:</strong>
           <%= @order.total_pieces %>
         </p>
         </div>
- -->
-            <div class="list-group-item">
 
+        <div class="list-group-item">
         <p>
           <strong>Total weight:</strong>
           <%= @order.total_weight %>
         </p>
+        </div>
+
+        <div class="list-group-item">
+        <ul>
+        <p> <strong>Dimensions</strong>
+        <% if @order.baggage_data %>
+         <% @order.baggage_data.each do |key, value| %>
+          <ul> <%= key %> :
+           <% val = to_hash(value) %>
+           <% val.each do |k,v| %>
+            <li><%= k %> : <%= v %></li>
+           <% end %>
+          </ul>
+         <% end %>
+        <% end %>
+        </ul>
         </div>
 
             <div class="list-group-item">

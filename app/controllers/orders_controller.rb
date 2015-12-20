@@ -73,6 +73,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:hawb_number, :shipper_id, :consignee_id, :total_pieces, :total_weight, :items_cost, :content)
+      params.require(:order).permit(:hawb_number, :shipper_id, :consignee_id, :total_pieces, :total_weight, :items_cost, :content, :baggage_data)
     end
 end

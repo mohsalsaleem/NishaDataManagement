@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220134540) do
+ActiveRecord::Schema.define(version: 20151220155201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "consignees", force: :cascade do |t|
     t.string   "name",           null: false
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20151220134540) do
     t.text     "content"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.hstore   "baggage_data"
   end
 
   add_index "orders", ["consignee_id"], name: "index_orders_on_consignee_id", using: :btree

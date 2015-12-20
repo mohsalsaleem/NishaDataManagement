@@ -13,7 +13,7 @@
           <th>Hawb number</th>
           <th>Shipper</th>
           <th>Consignee</th>
-          <!-- <th>Total pieces</th> -->
+          <th>Total pieces</th>
           <th>Total weight</th>
           <th>Items cost</th>
           <th>Content</th>
@@ -27,6 +27,7 @@
             <td><%= order.hawb_number %></td>
             <td><%= order.shipper.name %></td>
             <td><%= order.consignee.name %></td>
+            <td><%= order.total_pieces %></td>
             <td><%= order.total_weight %></td>
             <td><%= order.items_cost %></td>
             <td><%= order.content %></td>
