@@ -1,0 +1,69 @@
+<div class="container">
+<div class="row">
+<% if notice.present? %>
+  <div class="alert alert-info" role="alert">
+    <p id="notice"><%= notice %></p>
+  </div>
+  <% end %>
+<div class="col-lg-10">
+<div class="panel panel-primary">
+
+  <div class="panel-heading"><h2>Shipper</h2></div>
+  <div class="list-group">
+
+    <div class="list-group-item">
+  <p>
+    <strong>Name:</strong>
+    <%= @shipper.name %>
+  </p>
+  </div>
+
+    <div class="list-group-item">
+
+  <p>
+    <strong>Address line 1:</strong>
+    <%= @shipper.address_line_1 %>
+  </p>
+  </div>
+
+    <div class="list-group-item">
+  <p>
+    <strong>Address line 2:</strong>
+    <%= @shipper.address_line_2 %>
+  </p>
+</div>
+
+    <div class="list-group-item">
+  <p>
+    <strong>City:</strong>
+    <%= @shipper.city %>
+  </p>
+</div>
+
+    <div class="list-group-item">
+  <p>
+    <strong>Country:</strong>
+    <%= @shipper.country %>
+  </p>
+</div>
+
+    <div class="list-group-item">
+  <p>
+    <strong>Tel no:</strong>
+    <%= @shipper.tel_no %>
+  </p>
+</div>
+
+    <div class="list-group-item">
+  <p>
+    <strong>Email:</strong>
+    <%= @shipper.email %>
+  </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+  <%= link_to 'Edit', edit_shipper_path(@shipper), class: "btn btn-warning" %> |
+  <%= link_to 'Back', shippers_path, class: "btn btn-primary" %>
+</div>

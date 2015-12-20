@@ -1,0 +1,80 @@
+<div class="container">
+<div class="row">
+  <% if notice.present? %>
+  <div class="alert alert-info" role="alert">
+    <p id="notice"><%= notice %></p>
+  </div>
+  <% end %>
+<div class="col-lg-10">
+<div class="panel panel-primary">
+
+
+  <div class="panel-heading"><h2>Consignee</h2></div>
+  <div class="list-group">
+
+    <div class="list-group-item">
+      <p>
+        <strong>Name:</strong>
+        <%= @consignee.name %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+        <strong>Address line 1:</strong>
+        <%= @consignee.address_line_1 %>
+    </div>
+    <div class="list-group-item">
+      <p>
+        <strong>Address line 2:</strong>
+        <%= @consignee.address_line_2 %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>Po box no:</strong>
+        <%= @consignee.po_box_no %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>City:</strong>
+        <%= @consignee.city %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>Country:</strong>
+        <%= @consignee.country %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>Tel no 1:</strong>
+        <%= @consignee.tel_no_1 %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>Tel no 2:</strong>
+        <%= @consignee.tel_no_2 %>
+      </p>
+    </div>
+
+    <div class="list-group-item">
+      <p>
+        <strong>Email:</strong>
+        <%= @consignee.email %>
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<%= link_to 'Edit', edit_consignee_path(@consignee), class: "btn btn-warning" %> |
+<%= link_to 'Back', consignees_path, class: "btn btn-primary" %>
+</div>
