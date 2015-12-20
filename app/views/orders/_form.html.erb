@@ -1,0 +1,23 @@
+<%= simple_form_for(@order) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :shipper %>
+    or
+
+    <%= link_to "Create new Shipper", new_shipper_path, class: "btn btn-primary" %>
+    
+    <%= f.association :consignee %>
+    or
+
+    <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %>
+    
+    <%= f.input :total_weight %>
+    <%= f.input :items_cost %>
+    <%= f.input :content %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

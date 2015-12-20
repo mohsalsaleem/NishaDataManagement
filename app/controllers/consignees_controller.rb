@@ -1,6 +1,7 @@
 class ConsigneesController < ApplicationController
   before_action :set_consignee, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  $ref = false
   # GET /consignees
   # GET /consignees.json
   def index
@@ -15,6 +16,7 @@ class ConsigneesController < ApplicationController
   # GET /consignees/new
   def new
     @consignee = Consignee.new
+    $ref = URI.parse(request.env["HTTP_REFERER"]).to_s.include?("orders")
   end
 
   # GET /consignees/1/edit
@@ -28,7 +30,13 @@ class ConsigneesController < ApplicationController
 
     respond_to do |format|
       if @consignee.save
-        format.html { redirect_to @consignee, notice: 'Consignee was successfully created.' }
+        if $ref
+          # redirect_to new_order_path
+          format.html { redirect_to new_order_path, notice: 'Consignee was successfully created.' }
+        else
+          format.html { redirect_to @consignee, notice: 'Consignee was successfully created.' }
+        end
+        # format.html { redirect_to @consignee, notice: 'Consignee was successfully created.' }
         format.json { render :show, status: :created, location: @consignee }
       else
         format.html { render :new }
@@ -42,7 +50,13 @@ class ConsigneesController < ApplicationController
   def update
     respond_to do |format|
       if @consignee.update(consignee_params)
-        format.html { redirect_to @consignee, notice: 'Consignee was successfully updated.' }
+        if $ref
+          # redirect_to new_order_path
+          format.html { redirect_to new_order_path, notice: 'Consignee was successfully created.' }
+        else
+          format.html { redirect_to @consignee, notice: 'Consignee was successfully created.' }
+        end
+        # format.html { redirect_to @consignee, notice: 'Consignee was successfully updated.' }
         format.json { render :show, status: :ok, location: @consignee }
       else
         format.html { render :edit }

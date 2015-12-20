@@ -1,0 +1,73 @@
+<div class="container">
+<div class="row">
+  <% if notice.present? %>
+    <div class="alert alert-info" role="alert">
+      <p id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+  <div class="col-lg-10">
+  <div class="panel panel-primary">
+
+  <div class="panel-heading"><h2>Orders</h2></div>
+    <div class="list-group">
+
+      <div class="list-group-item">
+
+        <p>
+          <strong>Hawb number:</strong>
+          <%= @order.hawb_number %>
+        </p>
+        </div>
+
+            <div class="list-group-item">
+
+        <p>
+          <strong>Shipper:</strong>
+          <%= @order.shipper.name %>
+        </p>
+        </div>
+
+            <div class="list-group-item">
+
+        <p>
+          <strong>Consignee:</strong>
+          <%= @order.consignee.name %>
+        </p>
+        </div>
+
+<!--             <div class="list-group-item">
+
+        <p>
+          <strong>Total pieces:</strong>
+          <%= @order.total_pieces %>
+        </p>
+        </div>
+ -->
+            <div class="list-group-item">
+
+        <p>
+          <strong>Total weight:</strong>
+          <%= @order.total_weight %>
+        </p>
+        </div>
+
+            <div class="list-group-item">
+        <p>
+          <strong>Items cost:</strong>
+          <%= @order.items_cost %>
+        </p>
+        </div>
+
+            <div class="list-group-item">
+        <p>
+          <strong>Content:</strong>
+          <%= @order.content %>
+        </p>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+<%= link_to 'Edit', edit_order_path(@order), class: "btn btn-warning" %> |
+<%= link_to 'Back', orders_path, class: "btn btn-primary" %>
+</div>

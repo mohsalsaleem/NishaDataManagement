@@ -1,0 +1,43 @@
+<div class="container">
+  <% if notice.present? %>
+    <div class="alert alert-info" role="alert">
+      <p id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Listing Orders</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Hawb number</th>
+          <th>Shipper</th>
+          <th>Consignee</th>
+          <!-- <th>Total pieces</th> -->
+          <th>Total weight</th>
+          <th>Items cost</th>
+          <th>Content</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.hawb_number %></td>
+            <td><%= order.shipper.name %></td>
+            <td><%= order.consignee.name %></td>
+            <td><%= order.total_weight %></td>
+            <td><%= order.items_cost %></td>
+            <td><%= order.content %></td>
+            <td><%= link_to 'Show', order, class: "btn btn-primary" %></td>
+            <td><%= link_to 'Edit', edit_order_path(order), class: "btn btn-warning" %></td>
+            <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <%= link_to 'New Order', new_order_path, class: "btn btn-primary" %>
+</div>

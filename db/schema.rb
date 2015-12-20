@@ -11,32 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220114827) do
+ActiveRecord::Schema.define(version: 20151220134540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "consignees", force: :cascade do |t|
-    t.string   "name"
-    t.text     "address_line_1"
+    t.string   "name",           null: false
+    t.text     "address_line_1", null: false
     t.text     "address_line_2"
-    t.string   "po_box_no"
+    t.string   "po_box_no",      null: false
     t.string   "city"
-    t.string   "country"
-    t.string   "tel_no_1"
+    t.string   "country",        null: false
+    t.string   "tel_no_1",       null: false
     t.string   "tel_no_2"
     t.string   "email"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
+  create_table "hawbs", force: :cascade do |t|
+    t.integer  "number",     limit: 8
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "hawb_number"
+    t.integer  "shipper_id"
+    t.integer  "consignee_id"
+    t.integer  "total_pieces"
+    t.decimal  "total_weight"
+    t.decimal  "items_cost"
+    t.text     "content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "orders", ["consignee_id"], name: "index_orders_on_consignee_id", using: :btree
+  add_index "orders", ["shipper_id"], name: "index_orders_on_shipper_id", using: :btree
+
   create_table "shippers", force: :cascade do |t|
-    t.string   "name"
-    t.text     "address_line_1"
+    t.string   "name",           null: false
+    t.text     "address_line_1", null: false
     t.text     "address_line_2"
     t.string   "city"
-    t.string   "country"
-    t.string   "tel_no"
+    t.string   "country",        null: false
+    t.string   "tel_no",         null: false
     t.string   "email"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -60,4 +81,6 @@ ActiveRecord::Schema.define(version: 20151220114827) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "orders", "consignees"
+  add_foreign_key "orders", "shippers"
 end

@@ -7,20 +7,61 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="navbar navbar-light bg-faded">
-  <!-- <a class="navbar-brand" href="#">Nisha Shipping</a> -->
-  <%= link_to "Nisha Shipping", root_path, class: "navbar-brand" %>
-  <ul class="nav navbar-nav">
-    <li class="nav-item">
-      <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-      <%= link_to "Shippers", shippers_path %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Consignees", consignees_path %>
-    </li>
-  </ul>
-</nav>
-<%= yield %>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Nisha Shipping</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <%= link_to "Shippers", shippers_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Consignees", consignees_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Orders", orders_path %>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+
+        <% if !user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path %>
+          </li>
+        <% else %>
+          
+           <p class="navbar-text">Signed in as <strong><%= current_user.email %></strong></p>
+            
+          <li class="nav-item">
+            <%= link_to "Edit", edit_user_registration_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          </li>
+        <% end %>  
+        <li class="nav-item">
+          ---
+        </li> 
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<%= yield %>
 </body>
 </html>

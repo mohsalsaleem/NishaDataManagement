@@ -3,6 +3,7 @@ class ShippersController < ApplicationController
   before_action :authenticate_user!
   # GET /shippers
   # GET /shippers.json
+  $ref = false
   def index
     @shippers = Shipper.all
   end
@@ -15,6 +16,7 @@ class ShippersController < ApplicationController
   # GET /shippers/new
   def new
     @shipper = Shipper.new
+    $ref = URI.parse(request.env["HTTP_REFERER"]).to_s.include?("orders")
   end
 
   # GET /shippers/1/edit
@@ -28,7 +30,12 @@ class ShippersController < ApplicationController
 
     respond_to do |format|
       if @shipper.save
-        format.html { redirect_to @shipper, notice: 'Shipper was successfully created.' }
+        if $ref
+          # redirect_to new_order_path
+          format.html { redirect_to new_order_path, notice: 'Shipper was successfully created.' }
+        else
+          format.html { redirect_to @shipper, notice: 'Shipper was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @shipper }
       else
         format.html { render :new }
