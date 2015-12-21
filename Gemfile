@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'prawn'
+
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'country_select'

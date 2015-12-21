@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :manifests
   resources :orders do
     get "add"
   end

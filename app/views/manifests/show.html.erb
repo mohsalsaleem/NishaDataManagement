@@ -1,0 +1,39 @@
+<div class="container">
+<div class="row">
+  <% if notice.present? %>
+    <div class="alert alert-info" role="alert">
+      <p id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+  <div class="col-lg-10">
+  <div class="panel panel-primary">
+
+  <div class="panel-heading"><h2>Manifests</h2></div>
+    <div class="list-group">
+
+      <div class="list-group-item">
+		<p>
+		  <strong>MAWB:</strong>
+		  <%= @manifest.mawb %>
+		</p>
+		</div>
+
+        <div class="list-group-item">
+
+		<p>
+		  <strong>Orders to manifest:</strong>
+		  <ul>
+		  <% @manifest.hawb_numbers_to_manifest.each do |hawb|%>
+		  	<li><%= hawb %></li>
+		  <% end %>
+		  </ul>
+		</p>
+		</div>
+		</div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_manifest_path(@manifest), class: "btn btn-warning" %> |
+<%= link_to 'Back', manifests_path, class: "btn btn-primary" %>
+</div>

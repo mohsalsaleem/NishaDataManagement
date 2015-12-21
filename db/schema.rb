@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220155201) do
+ActiveRecord::Schema.define(version: 20151221185413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 20151220155201) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
   end
+
+  create_table "manifests", force: :cascade do |t|
+    t.string   "mawb",                                  null: false
+    t.integer  "order_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "orders_to_manifest",       default: [],              array: true
+    t.string   "hawb_numbers_to_manifest", default: [],              array: true
+  end
+
+  add_index "manifests", ["order_id"], name: "index_manifests_on_order_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "hawb_number"
@@ -83,6 +94,7 @@ ActiveRecord::Schema.define(version: 20151220155201) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "manifests", "orders"
   add_foreign_key "orders", "consignees"
   add_foreign_key "orders", "shippers"
 end
