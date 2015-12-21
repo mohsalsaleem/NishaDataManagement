@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :orders
+  resources :orders do
+    get "add"
+  end
   devise_for :users
   resources :consignees
   resources :shippers

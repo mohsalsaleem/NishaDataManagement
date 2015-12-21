@@ -1,3 +1,21 @@
+<div class="row">
+  <div class="col-lg-6">
+    How many packages? <input type =  "text" id = "noOfFields" class = "form-control" required/><br/>
+    <button class="btn btn-info" id="addField" data-remote="true">Add packages</button>
+    <div class="row" id="fields">
+    </div>
+    <div class = "row" id = "createBtn">
+      <input type = "button" id = "createPackagesBtn" class = "btn btn-primary" value = "Create Packages" style="display:none"/>
+    </div>
+    <div id = "showResults">
+      <div class = "row" id = "results" style="display:none">
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
 <%= simple_form_for(@order) do |f| %>
   <%= f.error_notification %>
 
@@ -9,8 +27,8 @@
     
     <%= f.association :consignee %>
     or
-
-    <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %>
+    <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %><br/>
+    
     <%= f.input :total_pieces %>
     <%= f.input :total_weight %>
     <%= f.input :items_cost %>
