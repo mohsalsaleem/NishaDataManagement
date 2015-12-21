@@ -2,9 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready -> 
+ready = -> 
 	$("#addField").click ->
 		noOfFields = $("#noOfFields").val();
+		if noOfFields == 0 or noOfFields == "" or noOfFields == "0"
+			console.log("Saleem")
+			alert("Enter the number of packages")
+			return false
+		hidden = $("div#fields").css("display")
+		if hidden != "none"
+			$("div#fields").empty()
 
 		length = '<input type="text" id = "length" name = "length" class = "form-control" placeholder="length"/>';
 
@@ -18,6 +25,7 @@ $(document).ready ->
 
 		for i in [1..noOfFields]
 			$("div#fields").append("<p>"+i+"</p>",length,br,width,br,height,br,weight,br);
+		$("div#fields").css("display","block")	
 		$("input#createPackagesBtn").css("display","block");
 
 	$("#createPackagesBtn").click ->
@@ -26,7 +34,6 @@ $(document).ready ->
 		console.log(hidden)
 		if hidden != "none"
 			$("div#results").empty()
-		#$("div#fields").hide();
 		lengths = $("input#length")
 		widths = $("input#width")
 		heights = $("input#height")
@@ -42,7 +49,21 @@ $(document).ready ->
 		actualWeight = 0
 		console.log(weights["0"].value)
 		wLength = weights.length
+		baggage_data = {}
 
+		for k in [1..wLength]
+			key = (k).toString()
+			baggage_data[key] = {}
+			if ( parseInt(lengths[k-1].value) and parseInt(widths[k-1].value) and parseInt(heights[k-1].value) and parseInt(weights[k-1].value) )
+				baggage_data[key]["length"] = parseInt(lengths[k-1].value)
+				baggage_data[key]["width"] = parseInt(widths[k-1].value)
+				baggage_data[key]["height"] = parseInt(heights[k-1].value)
+				baggage_data[key]["weight"] = parseInt(weights[k-1].value)
+			else
+				alert("Looks like you have missed out some stuff while entering dimensions in package no. "+key)
+				return false	
+
+		console.log(baggage_data)	
 
 		for i in [0..wLength-1]
 			index = (i).toString()
@@ -76,5 +97,8 @@ $(document).ready ->
 		$("input#order_total_pieces").val(numberOfPackages)
 		$("input#order_items_cost").val(actualCost)
 		$("input#order_total_weight").val(actualWeight)
-		
-				
+		$("input#order_baggage_data").val(JSON.stringify(baggage_data))
+		console.log(JSON.stringify(baggage_data))
+		console.log($("input#order_baggage_data").val())
+$(document).ready(ready)
+$(document).on('page:load',ready)				

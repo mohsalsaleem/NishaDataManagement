@@ -2,7 +2,7 @@
   <div class="col-lg-6">
     How many packages? <input type =  "text" id = "noOfFields" class = "form-control" required/><br/>
     <button class="btn btn-info" id="addField" data-remote="true">Add packages</button>
-    <div class="row" id="fields">
+    <div class="row" id="fields" style="display:none">
     </div>
     <div class = "row" id = "createBtn">
       <input type = "button" id = "createPackagesBtn" class = "btn btn-primary" value = "Create Packages" style="display:none"/>
@@ -28,7 +28,7 @@
     <%= f.association :consignee %>
     or
     <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %><br/>
-    
+    <%= f.hidden_field :baggage_data %>
     <%= f.input :total_pieces %>
     <%= f.input :total_weight %>
     <%= f.input :items_cost %>

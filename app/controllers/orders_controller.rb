@@ -28,6 +28,10 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     @order.hawb_number = Hawb.first.number + 1
+    print order_params[:baggage_data]
+
+    @order.baggage_data = eval(order_params[:baggage_data])
+    print @order.baggage_data["1"]
 
     respond_to do |format|
       if @order.save
