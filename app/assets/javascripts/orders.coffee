@@ -2,7 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-ready = -> 
+ready = ->
+	
+	$ ->
+	  # enable chosen js
+	  $('.chosen-select').chosen
+	    allow_single_deselect: true
+	    no_results_text: 'No results matched'
+	    width: '200px'
+
+
 	$("#addField").click ->
 		noOfFields = $("#noOfFields").val();
 		if noOfFields == 0 or noOfFields == "" or noOfFields == "0"
@@ -13,18 +22,18 @@ ready = ->
 		if hidden != "none"
 			$("div#fields").empty()
 
-		length = '<input type="text" id = "length" name = "length" class = "form-control" placeholder="length"/>';
+		length = '<input type="number" id = "length" name = "length" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="length"/>';
 
-		width = '<input type="text" name = "width" id = "width" class = "form-control" placeholder="width"/>';
+		width = '<input type="number" name = "width" id = "width" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="width"/>';
 
-		height = '<input type="text" name = "height" id = "height" class = "form-control" placeholder="height"/>';
+		height = '<input type="number" name = "height" id = "height" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="height"/>';
 
-		weight = '<input type="text" name = "weight" id = "weight" class = "form-control" placeholder="weight"/>';
+		weight = '<input type="number" name = "weight" id = "weight" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="weight"/>';
 
 		br = "<br />";
 
 		for i in [1..noOfFields]
-			$("div#fields").append("<p>"+i+"</p>",length,br,width,br,height,br,weight,br);
+			$("div#fields").append("<p>Package No."+i+"</p>",length,br,width,br,height,br,weight,br);
 		$("div#fields").css("display","block")	
 		$("input#createPackagesBtn").css("display","block");
 
@@ -100,5 +109,12 @@ ready = ->
 		$("input#order_baggage_data").val(JSON.stringify(baggage_data))
 		console.log(JSON.stringify(baggage_data))
 		console.log($("input#order_baggage_data").val())
+
 $(document).ready(ready)
-$(document).on('page:load',ready)				
+$(document).on('page:load',ready)
+
+@isNumberKey = (evt) ->
+	charCode = if evt.which then evt.which else event.keyCode
+	if charCode > 31 and (charCode < 48 || charCode > 57 || charCode == 46)
+		return false
+	return true

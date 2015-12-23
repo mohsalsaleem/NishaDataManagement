@@ -92,6 +92,120 @@ class ManifestsController < ApplicationController
     end
   end
 
+
+  def view_manifest
+    mawb = manifest_params[:mawb]
+    @manifest = Manifest.find_by(mawb: mawb)
+    orders_to_manifest = @manifest.orders_to_manifest
+    @orders = Order.find(orders_to_manifest)
+    remaing_weight = 0
+    remaining_weight_baggage = {}
+    last_baggage_number = 0
+    baggage_list = {}
+
+    flag = true
+
+    @orders.each do |o|
+      pieces_array = [] 
+      single_piece_detail = {}
+      last_baggage_number += 1
+      decimal = 0
+      pieces = o.total_weight/30
+      s_pieces = pieces.floor
+      puts "Pieces: " + s_pieces.to_s
+      
+      start = last_baggage_number
+      last_baggage_number = s_pieces + start -1
+
+      puts "remaing_weight: " + remaing_weight.ceil.to_s
+      puts "Order total weight: " + o.total_weight.to_s
+    
+      puts "start: " + start.to_s
+      puts "last_baggage_number: " + last_baggage_number.to_s
+      for i in start.to_i..last_baggage_number.to_i
+        single_piece_detail[i.to_s] = 30
+      end
+
+      # pieces_array.push(single_piece_detail)
+      # print "saleem"
+
+      if pieces %1 != 0
+        decimal = pieces - pieces.floor
+        puts "Decimal: " + decimal.to_s
+        remaing_weight = (decimal * 30)
+
+
+
+        remaining_weight_baggage.each do |k,v|
+
+          weight = k.to_i + remaing_weight
+
+          puts "Weight: "+weight.round.to_s
+          
+
+          if weight.to_i <= 32
+            puts v.to_s
+            single_piece_detail[v.to_s] = remaing_weight.to_i
+            flag = false
+          end
+        end
+
+        if flag
+          last_baggage_number += 1
+          remaining_weight_baggage[remaing_weight.to_i.to_s] = last_baggage_number
+          single_piece_detail[last_baggage_number.to_s] = remaing_weight.to_i
+          pieces += 1
+        end
+        flag = true
+      end
+      # pieces_array.push(single_piece_detail)
+      # puts pieces_array
+      
+      baggage_list[o.hawb_number.to_s] = single_piece_detail
+      # baggage_list = single_piece_detail
+      # remain
+    end
+
+    puts baggage_list
+
+    @baggages = baggage_list
+    # puts remaining_weight_baggage
+    # puts "pieces_array:"
+    # puts pieces_array
+    # return [@orders,@manifest,@baggages]
+    clr = caller[0][/`.*'/][1..-2]
+    if clr == "block (2 levels) in download"
+      return
+    else 
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "Manifest",
+                template: 'manifests/view_manifest.pdf.erb',
+                layout: 'pdf.html.erb'  # Excluding ".pdf" extension.
+        end
+      end
+    end
+    
+  end
+
+
+  def download
+    respond_to do |format|
+      format.xlsx do
+        render xslx: view_manifest, filename: "Manifest_#{@manifest.mawb}"
+      end
+    end
+  end
+
+  # def download_xls
+  #   respond_to do |format|
+  #     format.html
+  #     format.xlsx { render xlsx: :index, filename: "my_items_doc" }
+  #   end
+  # end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_manifest

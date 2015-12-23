@@ -1,0 +1,64 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2">
+		</div>
+		<div class="col-lg-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>MAWB: <%= @manifest.mawb %></h3>
+				</div>
+				<!-- <div class="panel-body">
+					<h3><a href="/manifests/download.pdf?manifest[mawb]=<%= @manifest.mawb %>">Download Manifest</a></h3>
+				</div> -->
+				<table class="table">
+					<thead>
+						<tr>
+							<th>HAWB NO</th>
+							<th>Shipper</th>
+							<th>Consignee</th>
+							<th>Pieces</th>
+							<th>Bag Weight</th>
+							<th>Content</th>
+							<th>AED</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<% @orders.each do |order| %>
+							<tr>
+								<td>
+									<%= order.hawb_number %><br/>
+									
+									<% @baggages.each do |baggage,i| %>
+										<% if baggage == order.hawb_number.to_s %>
+											<% i.each do |k,v| %>
+												<!-- <h5>Bag No<%= k %>: <%= v %></h5> -->
+												<%= k %>
+											<% end %>
+										<% end %>
+									<% end %>
+								</td>
+								<td>
+									<strong><%= order.shipper.name %></strong><br/>
+									<%= order.shipper.address_line_1 %><br/>
+									<h5>TEL: </h5><%= order.shipper.tel_no %>
+								</td>
+								<td>
+									<strong><%= order.consignee.name %></strong><br/>
+									<%= order.consignee.address_line_1 %><br/>
+									<h5>TEL: </h5><%= order.consignee.tel_no_1 %>
+								</td>
+								<td><%= order.total_pieces %></td>
+								<td><%= order.total_weight %></td>
+								<td><%= order.content %></td>
+								<td><%= order.items_cost %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-lg-2">
+		</div>
+	</div>
+</div>

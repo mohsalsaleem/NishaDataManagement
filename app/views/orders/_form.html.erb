@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-6">
-    How many packages? <input type =  "text" id = "noOfFields" class = "form-control" required/><br/>
+    How many packages? <input type =  "number" id = "noOfFields" class = "form-control" required onkeypress = "return isNumberKey(event)" /><br/>
     <button class="btn btn-info" id="addField" data-remote="true">Add packages</button>
     <div class="row" id="fields" style="display:none">
     </div>
@@ -20,12 +20,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :shipper %>
+    <%= f.label :shipper, "Shipper " %>
+    <%= f.association :shipper, include_blank: true, input_html: { class: 'chosen-select' }, label: false %><br/>
     or
-
-    <%= link_to "Create new Shipper", new_shipper_path, class: "btn btn-primary" %>
-    
-    <%= f.association :consignee %>
+    <%= link_to "Create new Shipper", new_shipper_path, class: "btn btn-primary" %><br/><br/>
+    <%= f.label :shipper, "Shipper " %>
+    <%= f.association :consignee, include_blank: true, input_html: { class: 'chosen-select' }, label: false %><br/>
     or
     <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %><br/>
     <%= f.hidden_field :baggage_data %>

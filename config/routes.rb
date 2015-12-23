@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  get "manifests/view_manifest" => "manifests#view_manifest"
+  get "manifests/download" => "manifests#download"
   resources :manifests
-  resources :orders do
-    get "add"
-  end
+  resources :orders
   devise_for :users
   resources :consignees
   resources :shippers

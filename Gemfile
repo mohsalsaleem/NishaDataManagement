@@ -1,6 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'prawn'
+gem "compass-rails", github: "Compass/compass-rails", branch: "master"
+
+gem 'chosen-rails'
+
+gem 'to_spreadsheet'
+
+gem 'wicked_pdf'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
