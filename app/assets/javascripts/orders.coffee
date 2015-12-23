@@ -18,23 +18,25 @@ ready = ->
 			console.log("Saleem")
 			alert("Enter the number of packages")
 			return false
-		hidden = $("div#fields").css("display")
+		hidden = $("form#fields").css("display")
 		if hidden != "none"
-			$("div#fields").empty()
+			$("form#fields").empty()
 
-		length = '<input type="number" id = "length" name = "length" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="length"/>';
+		length = '<div class="col-xs-3" style="display:inline"><input type="number" id = "length" name = "length" class = "form-control"  placeholder="length"/></div>';
 
-		width = '<input type="number" name = "width" id = "width" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="width"/>';
+		width = '<div class="col-xs-3" style="display:inline"><input type="number" name = "width" id = "width" class = "form-control"  placeholder="width"/></div>';
 
-		height = '<input type="number" name = "height" id = "height" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="height"/>';
+		height = '<div class="col-xs-3" style="display:inline"><input type="number" name = "height" id = "height" class = "form-control"  placeholder="height"/></div>';
 
-		weight = '<input type="number" name = "weight" id = "weight" class = "form-control" onkeypress = "return isNumberKey(event)" placeholder="weight"/>';
+		weight = '<div class="col-xs-3" style="display:inline"><input type="number" name = "weight" id = "weight" class = "form-control"  placeholder="weight"/></div>';
 
 		br = "<br />";
 
 		for i in [1..noOfFields]
-			$("div#fields").append("<p>Package No."+i+"</p>",length,br,width,br,height,br,weight,br);
-		$("div#fields").css("display","block")	
+			$("form#fields").append(length,width,height,weight);
+			#$("form#fields").append(br);
+
+		#$("form#fields").css("display","block")	
 		$("input#createPackagesBtn").css("display","block");
 
 	$("#createPackagesBtn").click ->
@@ -50,12 +52,12 @@ ready = ->
 
 		numberOfPackages = lengths.length
 
-		volumetricWeightedCost = 0
-		totalVolumetricWeight = 0
-		normalWeightedCost = 0
-		totalWeight = 0
-		actualCost = 0
-		actualWeight = 0
+		volumetricWeightedCost = 0.0
+		totalVolumetricWeight = 0.0
+		normalWeightedCost = 0.0
+		totalWeight = 0.0
+		actualCost = 0.0
+		actualWeight = 0.0
 		console.log(weights["0"].value)
 		wLength = weights.length
 		baggage_data = {}
@@ -63,11 +65,11 @@ ready = ->
 		for k in [1..wLength]
 			key = (k).toString()
 			baggage_data[key] = {}
-			if ( parseInt(lengths[k-1].value) and parseInt(widths[k-1].value) and parseInt(heights[k-1].value) and parseInt(weights[k-1].value) )
-				baggage_data[key]["length"] = parseInt(lengths[k-1].value)
-				baggage_data[key]["width"] = parseInt(widths[k-1].value)
-				baggage_data[key]["height"] = parseInt(heights[k-1].value)
-				baggage_data[key]["weight"] = parseInt(weights[k-1].value)
+			if ( parseFloat(lengths[k-1].value) and parseFloat(widths[k-1].value) and parseFloat(heights[k-1].value) and parseFloat(weights[k-1].value) )
+				baggage_data[key]["length"] = parseFloat(lengths[k-1].value)
+				baggage_data[key]["width"] = parseFloat(widths[k-1].value)
+				baggage_data[key]["height"] = parseFloat(heights[k-1].value)
+				baggage_data[key]["weight"] = parseFloat(weights[k-1].value)
 			else
 				alert("Looks like you have missed out some stuff while entering dimensions in package no. "+key)
 				return false	
@@ -76,11 +78,11 @@ ready = ->
 
 		for i in [0..wLength-1]
 			index = (i).toString()
-			totalWeight += parseInt(weights[index].value)
+			totalWeight += parseFloat(weights[index].value)
 
 		for j in [0..numberOfPackages-1]
 			index = (j).toString()
-			totalVolumetricWeight += (( parseInt(lengths[index].value) * parseInt(widths[index].value) * parseInt(heights[index].value) ) / 5000)
+			totalVolumetricWeight += (( parseFloat(lengths[index].value) * parseFloat(widths[index].value) * parseFloat(heights[index].value) ) / 5000)
 
 		volumetricWeightedCost = totalVolumetricWeight*3.5
 		normalWeightedCost = totalWeight*3.5
@@ -115,6 +117,9 @@ $(document).on('page:load',ready)
 
 @isNumberKey = (evt) ->
 	charCode = if evt.which then evt.which else event.keyCode
-	if charCode > 31 and (charCode < 48 || charCode > 57 || charCode == 46)
+	if charCode == 46
+		return true
+	else if charCode > 31 and (charCode < 48 || charCode > 57)
 		return false
-	return true
+	else
+		return true

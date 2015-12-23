@@ -1,9 +1,13 @@
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     How many packages? <input type =  "number" id = "noOfFields" class = "form-control" required onkeypress = "return isNumberKey(event)" /><br/>
-    <button class="btn btn-info" id="addField" data-remote="true">Add packages</button>
-    <div class="row" id="fields" style="display:none">
+    <button class="btn btn-info" id="addField" data-remote="true">Add packages</button><br/><br/>
+    <div class="row">
+      <form class="form-horizontal" id="fields">
+        
+      </form>
     </div>
+    <br/>
     <div class = "row" id = "createBtn">
       <input type = "button" id = "createPackagesBtn" class = "btn btn-primary" value = "Create Packages" style="display:none"/>
     </div>
