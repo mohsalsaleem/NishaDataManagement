@@ -18,9 +18,11 @@ ready = ->
 			console.log("Saleem")
 			alert("Enter the number of packages")
 			return false
-		hidden = $("form#fields").css("display")
+		hidden = $("div#frm").css("display")
 		if hidden != "none"
-			$("form#fields").empty()
+			$("div#frm").empty()
+
+		#form = '<form class="form-horizontal" id = "fields"></form>'	
 
 		length = '<div class="col-xs-3" style="display:inline"><input type="number" id = "length" name = "length" class = "form-control"  placeholder="length"/></div>';
 
@@ -33,10 +35,11 @@ ready = ->
 		br = "<br />";
 
 		for i in [1..noOfFields]
-			$("form#fields").append(length,width,height,weight);
-			#$("form#fields").append(br);
+			$("div#frm").append('<h5>Package No: '+i+'</h5><br/><form class="form-horizontal" id = "fields'+i+'"></form><br/>');
+			$('form#fields'+i+'').append(length,width,height,weight);
+			$("form#fields"+i).append(br);
 
-		#$("form#fields").css("display","block")	
+		#$("div#frm").css("display","block")	
 		$("input#createPackagesBtn").css("display","block");
 
 	$("#createPackagesBtn").click ->

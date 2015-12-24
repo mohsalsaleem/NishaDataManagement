@@ -28,6 +28,7 @@ class ManifestsController < ApplicationController
     #print manifest_params[:order_id]
     order_array = []
     hawb_number_array = []
+    orders_to_update = []
 
     for i in 0..manifest_params[:order_id].length-2
       order_array.push(manifest_params[:order_id][i].to_i)
@@ -37,6 +38,7 @@ class ManifestsController < ApplicationController
     # print orders.first.hawb_number
     orders.each do |o|
       hawb_number_array.push(o.hawb_number.to_s)
+      orders_to_update.push(o.id)
     end
 
     @manifest.orders_to_manifest = order_array
@@ -44,6 +46,10 @@ class ManifestsController < ApplicationController
 
     respond_to do |format|
       if @manifest.save
+        orders_to_update.each do |otu|
+          order = Order.find(otu)
+          order.update(manifested_flag: true)
+        end
         format.html { redirect_to @manifest, notice: 'Manifest was successfully created.' }
         format.json { render :show, status: :created, location: @manifest }
       else
@@ -117,11 +123,11 @@ class ManifestsController < ApplicationController
       start = last_baggage_number
       last_baggage_number = s_pieces + start -1
 
-      puts "remaing_weight: " + remaing_weight.ceil.to_s
-      puts "Order total weight: " + o.total_weight.to_s
+      # puts "remaing_weight: " + remaing_weight.ceil.to_s
+      # puts "Order total weight: " + o.total_weight.to_s
     
-      puts "start: " + start.to_s
-      puts "last_baggage_number: " + last_baggage_number.to_s
+      # puts "start: " + start.to_s
+      # puts "last_baggage_number: " + last_baggage_number.to_s
       for i in start.to_i..last_baggage_number.to_i
         single_piece_detail[i.to_s] = 30
       end
@@ -129,30 +135,42 @@ class ManifestsController < ApplicationController
       # pieces_array.push(single_piece_detail)
       # print "saleem"
 
-      if pieces %1 != 0
+      if pieces % 1 != 0
+        puts "Pieces dec: " + pieces.to_s
         decimal = pieces - pieces.floor
-        puts "Decimal: " + decimal.to_s
+        # puts "Decimal: " + decimal.to_s
         remaing_weight = (decimal * 30)
 
-
+        puts "Balance: " + remaing_weight.to_s
 
         remaining_weight_baggage.each do |k,v|
 
-          weight = k.to_i + remaing_weight
+          weight = v.to_i + remaing_weight
 
-          puts "Weight: "+weight.round.to_s
+          # puts "Weight: "+weight.round.to_s
           
 
           if weight.to_i <= 32
-            puts v.to_s
-            single_piece_detail[v.to_s] = remaing_weight.to_i
-            flag = false
+            # puts k.to_s
+            # puts remaing_weight
+            # puts v.to_i
+            if v.to_i > 2
+              single_piece_detail[k.to_s] = remaing_weight.to_i
+              remaining_weight_baggage[k.to_s] = v - remaing_weight
+              puts "Remaining Weight baggage: " + remaining_weight_baggage[k.to_s].to_s 
+              # puts "remaing_weight: " + (remaing_weight - v).to_s
+              flag = false
+            end
           end
+        end
+
+        remaining_weight_baggage.each do |r,vv|
+          puts r.to_s + ":" + vv.to_s
         end
 
         if flag
           last_baggage_number += 1
-          remaining_weight_baggage[remaing_weight.to_i.to_s] = last_baggage_number
+          remaining_weight_baggage[last_baggage_number.to_i.to_s] = remaing_weight
           single_piece_detail[last_baggage_number.to_s] = remaing_weight.to_i
           pieces += 1
         end
