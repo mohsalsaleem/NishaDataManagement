@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'will_paginate-bootstrap'
+
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 
 gem 'chosen-rails'

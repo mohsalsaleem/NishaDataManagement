@@ -5,7 +5,7 @@ class ShippersController < ApplicationController
   # GET /shippers.json
   $ref = false
   def index
-    @shippers = Shipper.all
+    @shippers = Shipper.paginate(page: params[:paginate], per_page: 10)
   end
 
   # GET /shippers/1

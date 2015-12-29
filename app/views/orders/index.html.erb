@@ -39,6 +39,9 @@
       </tbody>
     </table>
   </div>
+  <div class="digg_pagination">
+    <center>   <%= will_paginate @orders, renderer: BootstrapPagination::Rails %> </center>
+  </div>
   <br>
   <%= link_to 'New Order', new_order_path, class: "btn btn-primary" %>
 </div>

@@ -52,7 +52,7 @@
 								<td><%= order.total_pieces %></td>
 								<td><%= order.total_weight %></td>
 								<td><%= order.content %></td>
-								<td><%= order.items_cost %></td>
+								<td><%= order.items_cost.round(2) %></td>
 							</tr>
 						<% end %>
 					</tbody>

@@ -33,7 +33,11 @@
       <% end %>
     </tbody>
   </table>
-</div>
+  </div>
+  <div class="digg_pagination">
+    <center>   <%= will_paginate @orders, renderer: BootstrapPagination::Rails %> </center>
+  </div>
+  <br>
   <br>
 
   <%= link_to 'New Shipper', new_shipper_path, class: "btn btn-primary" %>

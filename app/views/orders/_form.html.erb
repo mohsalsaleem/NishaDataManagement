@@ -28,7 +28,7 @@
     <%= f.association :shipper, include_blank: true, input_html: { class: 'chosen-select' }, label: false %><br/>
     or
     <%= link_to "Create new Shipper", new_shipper_path, class: "btn btn-primary" %><br/><br/>
-    <%= f.label :shipper, "Shipper " %>
+    <%= f.label :consignee, "Consignee" %>
     <%= f.association :consignee, include_blank: true, input_html: { class: 'chosen-select' }, label: false %><br/>
     or
     <%= link_to "Create new Consignee", new_consignee_path, class: "btn btn-primary" %><br/>

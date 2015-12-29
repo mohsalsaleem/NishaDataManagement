@@ -5,7 +5,7 @@ class ConsigneesController < ApplicationController
   # GET /consignees
   # GET /consignees.json
   def index
-    @consignees = Consignee.all
+    @consignees = Consignee.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /consignees/1

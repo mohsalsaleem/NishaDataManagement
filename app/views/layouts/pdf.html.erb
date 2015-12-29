@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style type="text/css">
+  	tr {
+		page-break-inside: avoid;
+	}
+  </style>
   <title>PDF</title>
   <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all','data-turbolinks-track' => true %>
 </head>

@@ -1,10 +1,16 @@
 class ManifestsController < ApplicationController
   before_action :set_manifest, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /manifests
   # GET /manifests.json
   def index
-    @manifests = Manifest.all
+    if params[:search].present?
+      result = Manifest.search(params[:search])
+      @manifests = result.paginate(page: params[:page], per_page: 10)
+    else
+      @manifests = Manifest.paginate(page: params[:page], per_page: 10)
+    end
   end
 
   # GET /manifests/1
@@ -200,7 +206,11 @@ class ManifestsController < ApplicationController
         format.pdf do
           render pdf: "Manifest",
                 template: 'manifests/view_manifest.pdf.erb',
-                layout: 'pdf.html.erb'  # Excluding ".pdf" extension.
+                layout: 'pdf.html.erb',
+               margin:  {   top:               5,                     # default 10 (mm)
+                            bottom:            10,
+                            left:              10,
+                            right:             10 }  # Excluding ".pdf" extension.
         end
       end
     end

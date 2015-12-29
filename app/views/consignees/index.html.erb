@@ -40,7 +40,10 @@
 </table>
 
 </div>
-
+<div class="digg_pagination">
+    <center>   <%= will_paginate @consignees, renderer: BootstrapPagination::Rails %> </center>
+  </div>
+  <br>
 <br>
 
 <%= link_to 'New Consignee', new_consignee_path, class: "btn btn-primary" %>

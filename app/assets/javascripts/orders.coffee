@@ -24,19 +24,21 @@ ready = ->
 
 		#form = '<form class="form-horizontal" id = "fields"></form>'	
 
-		length = '<div class="col-xs-3" style="display:inline"><input type="number" id = "length" name = "length" class = "form-control"  placeholder="length"/></div>';
+		length = '<div class="col-xs-2" style="display:inline"><input type="number" id = "length" name = "length" class = "form-control"  placeholder="length"/></div>';
 
-		width = '<div class="col-xs-3" style="display:inline"><input type="number" name = "width" id = "width" class = "form-control"  placeholder="width"/></div>';
+		width = '<div class="col-xs-2" style="display:inline"><input type="number" name = "width" id = "width" class = "form-control"  placeholder="width"/></div>';
 
-		height = '<div class="col-xs-3" style="display:inline"><input type="number" name = "height" id = "height" class = "form-control"  placeholder="height"/></div>';
+		height = '<div class="col-xs-2" style="display:inline"><input type="number" name = "height" id = "height" class = "form-control"  placeholder="height"/></div>';
 
-		weight = '<div class="col-xs-3" style="display:inline"><input type="number" name = "weight" id = "weight" class = "form-control"  placeholder="weight"/></div>';
+		weight = '<div class="col-xs-2" style="display:inline"><input type="number" name = "weight" id = "weight" class = "form-control"  placeholder="weight"/></div>';
+
+		bag_number = '<div class="col-xs-2" style="display:inline"><input type="number" name = "bag_number" id = "bag_number" class = "form-control"  placeholder="bag number"/></div>';
 
 		br = "<br />";
 
 		for i in [1..noOfFields]
 			$("div#frm").append('<h5>Package No: '+i+'</h5><br/><form class="form-horizontal" id = "fields'+i+'"></form><br/>');
-			$('form#fields'+i+'').append(length,width,height,weight);
+			$('form#fields'+i+'').append(length,width,height,weight, bag_number);
 			$("form#fields"+i).append(br);
 
 		#$("div#frm").css("display","block")	
