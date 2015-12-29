@@ -1,3 +1,5 @@
+require 'json'
+
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
@@ -30,8 +32,8 @@ class OrdersController < ApplicationController
     @order.hawb_number = Hawb.first.number + 1
     print order_params[:baggage_data]
 
-    @order.baggage_data = eval(order_params[:baggage_data])
-    print @order.baggage_data["1"]
+    @order.baggage_data = JSON.parse(order_params[:baggage_data])
+    print @order.baggage_data
 
     respond_to do |format|
       if @order.save
