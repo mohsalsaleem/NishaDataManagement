@@ -58,6 +58,7 @@ end
 group :production do
 	gem 'rails_12factor'
     gem 'wkhtmltopdf-heroku'
+    ruby '2.2.2p95'
 end
  
 group :development do
