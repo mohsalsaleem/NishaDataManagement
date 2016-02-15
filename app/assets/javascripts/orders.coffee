@@ -54,6 +54,7 @@ ready = ->
 		widths = $("input#width")
 		heights = $("input#height")
 		weights = $("input#weight")
+		bag_numbers = $("input#bag_number")
 
 		numberOfPackages = lengths.length
 
@@ -75,6 +76,7 @@ ready = ->
 				baggage_data[key]["width"] = parseFloat(widths[k-1].value)
 				baggage_data[key]["height"] = parseFloat(heights[k-1].value)
 				baggage_data[key]["weight"] = parseFloat(weights[k-1].value)
+				baggage_data[key]["bag_number"] = parseInt(bag_numbers[k-1].value)
 			else
 				alert("Looks like you have missed out some stuff while entering dimensions in package no. "+key)
 				return false	

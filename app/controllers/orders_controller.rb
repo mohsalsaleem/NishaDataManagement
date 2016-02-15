@@ -30,10 +30,10 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
 
     @order.hawb_number = Hawb.first.number + 1
-    print order_params[:baggage_data]
 
     @order.baggage_data = JSON.parse(order_params[:baggage_data])
-    print @order.baggage_data
+
+    print eval(@order.baggage_data["1"]).class
 
     respond_to do |format|
       if @order.save

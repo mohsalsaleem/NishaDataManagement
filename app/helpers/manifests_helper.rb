@@ -8,4 +8,8 @@ module ManifestsHelper
 	def orders_not_manifested_yet
 		return Order.all.where(manifested_flag: false)
 	end
+	def to_hash(value)
+		val = eval(value)
+		return val
+	end
 end

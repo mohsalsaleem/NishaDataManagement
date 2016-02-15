@@ -28,6 +28,10 @@
 							<tr>
 								<td>
 									<%= order.hawb_number %><br/>
+									<% order.baggage_data.each do |baggage| %>
+										<% h = to_hash(baggage[1]) %>
+										<%= h["bag_number"] %>
+									<% end %>
 									<!-- 
 									<% @baggages.each do |baggage,i| %>
 										<% if baggage == order.hawb_number.to_s %>

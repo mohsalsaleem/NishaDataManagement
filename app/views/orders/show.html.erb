@@ -58,7 +58,7 @@
           <ul> <%= key %> :
            <% val = to_hash(value) %>
            <% val.each do |k,v| %>
-            <li><%= k %> : <%= v %></li>
+            <li><%= k.humanize %> : <%= v %></li>
            <% end %>
           </ul>
          <% end %>

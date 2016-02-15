@@ -27,8 +27,12 @@
 					<tbody>
 						<% @orders.each do |order| %>
 							<tr>
-								<td>
+								<td class="col-md-3">
 									<%= order.hawb_number %><br/>
+									<% order.baggage_data.each do |baggage| %>
+										<% h = to_hash(baggage[1]) %>
+										<%= h["bag_number"] %>
+									<% end %>
 									<!-- 
 									<% @baggages.each do |baggage,i| %>
 										<% if baggage == order.hawb_number.to_s %>
@@ -40,20 +44,20 @@
 									<% end %>
 									-->
 								</td>
-								<td>
+								<td class="col-md-3">
 									<strong><%= order.shipper.name %></strong><br/>
 									<%= order.shipper.address_line_1 %><br/>
 									<h5>TEL: </h5><%= order.shipper.tel_no %>
 								</td>
-								<td>
+								<td class="col-md-3">
 									<strong><%= order.consignee.name %></strong><br/>
 									<%= order.consignee.address_line_1 %><br/>
 									<h5>TEL: </h5><%= order.consignee.tel_no_1 %>
 								</td>
-								<td><%= order.total_pieces %></td>
-								<td><%= order.total_weight %></td>
-								<td><%= order.content %></td>
-								<td><%= order.items_cost %></td>
+								<td class="col-md-3"><%= order.total_pieces %></td>
+								<td class="col-md-3"><%= order.total_weight %></td>
+								<td class="col-md-2"><%= order.content %></td>
+								<td class="col-md-3"><%= order.items_cost %></td>
 							</tr>
 						<% end %>
 					</tbody>
